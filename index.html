@@ -1,0 +1,81 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styling.css" />
+  </head>
+  <body>
+    <h1 class="title">This is a CALCULATOR!</h1>
+    <div class="calculator">
+      <div class="screen">
+        <input id="calc" type="text" class="display" value="" disabled />
+        <input id="result" type="text" class="ans_display" value="" disabled />
+        <div class="circle_button_area">
+          <div class="circle_button_text">
+            <p class="text">SHIFT</p>
+            <p class="text" id="Trig_text">DEGREES</p>
+            <p class="text">ON/OFF</p>
+          </div>
+          <div class="circle_buttons">
+            <button type="button" class="btnr" onclick="shiftButton()"></button>
+            <button
+              type="button"
+              class="btnr"
+              onclick="toggleTrig()"
+            ></button>
+            <button
+              type="button"
+              class="btnr"
+              onclick="toggleCalculator()"
+            ></button>
+          </div>
+        </div>
+        <div class="black_buttons">
+          <button type="button" class="black_btn" id= "sqrt" onclick="appendChar(this)" data-shift="Abs(">sqrt(</button>
+          <button type="button" class="black_btn" id="pi"onclick="appendChar(this)" data-shift="e">π</button>
+          <button type="button" class="black_btn" id="^" onclick="appendChar(this)">^</button>
+          <button type="button" class="black_btn" id="^-1" onclick="appendChar(this)">^-1</button>
+          <button type="button" class="black_btn" id="^2" onclick="appendChar(this)">^2</button>
+          <button type="button" class="black_btn" id="start_bracket" onclick="appendChar(this)">(</button>
+
+          <button type="button" class="black_btn" id="sin" onclick="appendChar(this)" data-shift="sin⁻¹(">sin(</button>
+          <button type="button" class="black_btn" id="cos" onclick="appendChar(this)" data-shift="cos⁻¹(">cos(</button>
+          <button type="button" class="black_btn" id="tan" onclick="appendChar(this)" data-shift="tan⁻¹(">tan(</button>
+          <button type="button" class="black_btn" id="log"onclick="appendChar(this)">logX(</button>
+          <button type="button" class="black_btn" id="ln" onclick="appendChar(this)">ln(</button>
+          <button type="button" class="black_btn" id="end_bracket" onclick="appendChar(this)">)</button>
+          
+        </div>
+        <div class="white_buttons">
+          <!--row 1-->
+          <button type="button" class="btn" onclick="appendChar(this)">7</button>
+          <button type="button" class="btn" onclick="appendChar(this)">8</button>
+          <button type="button" class="btn" onclick="appendChar(this)">9</button>
+          <button type="button" class="btn" onclick="deleteChar()">DEL</button>
+          <button type="button" class="btn" onclick="clearScreen()">AC</button>
+          
+          <!--row 3-->
+          <button type="button" class="btn" onclick="appendChar(this)">4</button>
+          <button type="button" class="btn" onclick="appendChar(this)">5</button>
+          <button type="button" class="btn" onclick="appendChar(this)">6</button>
+          <button type="button" class="btn" onclick="appendChar(this)">*</button>
+          <button type="button" class="btn" onclick="appendChar(this)">/</button>
+          <!--row 4-->
+          <button type="button" class="btn" onclick="appendChar(this)">1</button>
+          <button type="button" class="btn" onclick="appendChar(this)">2</button>
+          <button type="button" class="btn" onclick="appendChar(this)">3</button>
+          <button type="button" class="btn" onclick="appendChar(this)">+</button>
+          <button type="button" class="btn" onclick="appendChar(this)">-</button>
+          <!--row 5-->
+          <button type="button" class="btn" onclick="appendChar(this)">0</button>
+          <button type="button" class="btn" onclick="appendChar(this)">.</button>
+          <button type="button" class="btn" onclick="appendChar(this)">x10^X</button>
+          <button type="button" class="btn" onclick="appendChar(this)">Ans</button>
+          <button type="button" class="btn" onclick="calculate()">=</button>
+          <!--row 6---->
+        </div>
+      </div>
+    </div>
+    <script src="scripts.js"></script>
+  </body>
+</html>
