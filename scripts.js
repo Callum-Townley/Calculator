@@ -25,6 +25,7 @@ function calculate() {
     const sqrt_reg_ex= /sqrt\((\d+\.?\d*)\)/g
     const Abs_reg_ex=/Abs\((-?\d+\.?\d*)\)/g
     const log_reg_ex= /log(\d+\.?\d*)\((\d+\.?\d*)\)/g
+    const ln_reg_ex=/ln\((\d+\.?\d*)\)/g
     const result = document.getElementById('result');
     const calc = document.getElementById('calc');
     const ans = parseFloat(result.value)
@@ -56,6 +57,9 @@ function calculate() {
         })
         calc_value = calc_value.replace(log_reg_ex,(match,base,num)=>{
             return Math.log(num)/Math.log(base)
+        })
+        calc_value = calc_value.replace(ln_reg_ex,(match,num)=>{
+            return Math.log(num)
         })
         //handles ans
         calc_value = calc_value.replace(ans_reg_ex,(ans|| 0))
