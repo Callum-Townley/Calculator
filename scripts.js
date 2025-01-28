@@ -19,51 +19,14 @@ function appendChar(button) {
 Radians="DEGREES";
 //calculates the answer when the equals button is pressed
 function calculate() {
-    const trig_reg_ex=/(-?\d+\.?\d*)?(sin|cos|tan)\((-?\d+\.?\d*)\)/g
-    const inv_trig_reg_ex=/(-?\d+\.?\d*)?(sin⁻¹|cos⁻¹|tan⁻¹)\((-?\d+\.?\d*)\)/g
-    const ans_reg_ex= /Ans/g
-    const sqrt_reg_ex= /sqrt\((\d+\.?\d*)\)/g
-    const Abs_reg_ex=/Abs\((-?\d+\.?\d*)\)/g
-    const log_reg_ex= /log(\d+\.?\d*)\((\d+\.?\d*)\)/g
-    const ln_reg_ex=/ln\((\d+\.?\d*)\)/g
     const result = document.getElementById('result');
     const calc = document.getElementById('calc');
     const ans = parseFloat(result.value)
-    console.log(ans)
     if (!result.disabled){
     try {
         let calc_value = calc.value
         //handles trig
-        calc_value = calc_value.replace(inv_trig_reg_ex,(match,multi,func,num)=>{
-            multi =multi? parseFloat(multi):1
-            console.log(multi,func,num)
-            return inverse_TrigCalculate(Radians,multi,func,num)
-        })
-        calc_value = calc_value.replace(trig_reg_ex,(match,multi,func,angle)=>{
-            multi =multi? parseFloat(multi):1
-            return trigCalculate(func,angle,Radians,multi)
-        })
-        calc_value = calc_value.replace(Abs_reg_ex,(match,num)=>{
-        return Math.abs(num)
-    })
-        //handles exponentiation
-        calc_value = calc_value.replace(`^`,(`**`))
-        //handles PI
-        calc_value = calc_value.replace(`π`,(Math.PI))
-        calc_value = calc_value.replace(`e`,(Math.E))
-        //handles sqrt
-        calc_value = calc_value.replace(sqrt_reg_ex,(match,num)=>{
-            return Math.sqrt(parseFloat(num))
-        })
-        calc_value = calc_value.replace(log_reg_ex,(match,base,num)=>{
-            return Math.log(num)/Math.log(base)
-        })
-        calc_value = calc_value.replace(ln_reg_ex,(match,num)=>{
-            return Math.log(num)
-        })
-        //handles ans
-        calc_value = calc_value.replace(ans_reg_ex,(ans|| 0))
-        console.log(calc_value)
+        calc_value= interpet_Calc(calc_value,ans)
         result.value = parseFloat(eval(calc_value).toFixed(3));
         if (result.value > 1e7){
             result.value = Number(result.value).toExponential(3);
@@ -165,6 +128,51 @@ function inverse_TrigCalculate(Radians,multi,func,num){
                 return degree_change*multi*Math.atan(num).toFixed(5)
         }
     }
+
+function interpet_Calc(calc_value,ans){
+    const trig_reg_ex=/(-?\d+\.?\d*)?(sin|cos|tan)\((-?\d+\.?\d*)\)/g
+    const inv_trig_reg_ex=/(-?\d+\.?\d*)?(sin⁻¹|cos⁻¹|tan⁻¹)\((-?\d+\.?\d*)\)/g
+    const ans_reg_ex= /Ans/g
+    const sqrt_reg_ex= /sqrt\((\d+\.?\d*)\)/g
+    const Abs_reg_ex=/Abs\((-?\d+\.?\d*)\)/g
+    const log_reg_ex= /log(\d+\.?\d*)\((\d+\.?\d*)\)/g
+    const ln_reg_ex=/ln\((\d+\.?\d*)\)/g
+    //handles arcsin,arccos,arctan
+    calc_value = calc_value.replace(inv_trig_reg_ex,(match,multi,func,num)=>{
+        multi =multi? parseFloat(multi):1
+        console.log(multi,func,num)
+        return inverse_TrigCalculate(Radians,multi,func,num)
+    })
+    //handles sin,cos,tan
+    calc_value = calc_value.replace(trig_reg_ex,(match,multi,func,angle)=>{
+        multi =multi? parseFloat(multi):1
+        return trigCalculate(func,angle,Radians,multi)
+    })
+    //handles absolute values
+    calc_value = calc_value.replace(Abs_reg_ex,(match,num)=>{
+    return Math.abs(num)
+})
+    //handles exponentiation
+    calc_value = calc_value.replace(`^`,(`**`))
+    //handles PI
+    calc_value = calc_value.replace(`π`,(Math.PI))
+    calc_value = calc_value.replace(`e`,(Math.E))
+    //handles sqrt
+    calc_value = calc_value.replace(sqrt_reg_ex,(match,num)=>{
+        return Math.sqrt(parseFloat(num))
+    })
+    //handles logs
+    calc_value = calc_value.replace(log_reg_ex,(match,base,num)=>{
+        return Math.log(num)/Math.log(base)
+    })
+    //handles natural logs
+    calc_value = calc_value.replace(ln_reg_ex,(match,num)=>{
+        return Math.log(num)
+    })
+    //handles ans
+    calc_value = calc_value.replace(ans_reg_ex,(ans|| 0))
+    return calc_value
+}
 
 
   
